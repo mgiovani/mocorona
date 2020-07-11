@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "resumos",
+  "info": {
+    "name": "resumos"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "data_atualizacao": {
+      "type": "date",
+      "unique": true,
+      "required": true
+    },
+    "notificacoes": {
+      "type": "integer"
+    },
+    "negativos": {
+      "type": "integer"
+    },
+    "confirmados": {
+      "type": "integer"
+    },
+    "recuperados": {
+      "type": "integer"
+    },
+    "obitos": {
+      "type": "integer"
+    }
+  }
+}
