@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
+from utils import api
 
 class CrawlerStatus:
     URL_BASE = 'https://saude.montesclaros.mg.gov.br/'
@@ -15,6 +16,9 @@ class CrawlerStatus:
         recuperados = self._encontra_recuperados(soup)
         obitos = self._encontra_obitos(soup)
         data, hora = self._encontra_ultima_atualizacao(soup)
+        api.envia_resumo(
+            notificacoes, negativos, confirmados, recuperados, obitos, data
+        )
 
     def _encontra_notificacoes(self, soup):
         notificacoes = self._encontra_contador(soup, 'Notificações')
