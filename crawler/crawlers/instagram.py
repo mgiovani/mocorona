@@ -5,6 +5,8 @@ from datetime import datetime
 import requests
 from bs4 import BeautifulSoup
 
+from utils import api
+
 class CrawlerInstagram:
     URL_BASE = 'https://www.instagram.com/sec_saude_moc/'
 
@@ -13,7 +15,7 @@ class CrawlerInstagram:
         html = requests.get(self.URL_BASE)
         soup = BeautifulSoup(html.content, 'html.parser')
         json_pagina = self._extrai_json_pagina(soup)
-        imagens = self._encontra_imagens(json_pagina)
+        self._encontra_imagens(json_pagina)
 
     def _extrai_json_pagina(self, soup):
         body = soup.find('body')
@@ -32,7 +34,7 @@ class CrawlerInstagram:
         data_atual = datetime.now().date()
         imagens_data = self._filtra_imagens_por_data(imagens, data_atual)
         urls = self._extrai_urls_imagens(imagens_data)
-        self._salva_imagens(data_atual, urls)
+        return self._salva_imagens(data_atual, urls)
 
     def _filtra_imagens_por_data(self, imagens, data):
         imagens_data = []
@@ -60,11 +62,4 @@ class CrawlerInstagram:
         for url in urls:
             imagem = requests.get(url)
             checksum = imagem.headers.get('x-needle-checksum')
-            caminho_arquivo = f'{os.path.join(diretorio_imagens, checksum)}.jpg'
-            if os.path.exists(caminho_arquivo):
-                print(f'Arquivo {caminho_arquivo} ignorado, baixado anteriormente.')
-                continue
-
-            print(f'Criando arquivo {caminho_arquivo}...')
-            with open(caminho_arquivo, 'wb') as f:
-                f.write(imagem.content)
+            api.envia_imagem(data, imagem.content, checksum)
