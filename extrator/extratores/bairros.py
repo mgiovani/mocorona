@@ -2,6 +2,9 @@ import os
 import re
 import datetime
 
+from utils import api
+
+
 class ExtratorBairros:
     PATH_TEXTOS = os.path.join('..', 'conversor', 'textos')
 
@@ -12,7 +15,7 @@ class ExtratorBairros:
         for texto in textos:
             if self._texto_tipo_bairros(texto):
                 dados = self._extrai_dados_arquivo(texto)
-                self._envia_dados_api(dados)
+                api.envia_casos_bairros(data, dados)
 
     def _encontra_arquivos_data(self, data):
         data = data.strftime('%Y-%m-%d')
@@ -49,11 +52,9 @@ class ExtratorBairros:
             'ANTÔNIO 1': 'ANTÔNIO I',
             'ANÂLIA': 'ANÁLIA',
             'SR3.': 'SR.ª',
+            'SR-': 'SR.ª',
             '1 BITU RU NA': 'IBITURUNA'
         }
         for erro in substituicoes.keys():
             texto = texto.replace(erro, substituicoes[erro])
         return texto
-
-    def _envia_dados_api(self, dados):
-        print(dados)
