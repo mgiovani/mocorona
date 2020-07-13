@@ -52,8 +52,10 @@ class ExtratorBairros:
             'ANTÔNIO 1': 'ANTÔNIO I',
             'ANÂLIA': 'ANÁLIA',
             'SR3.': 'SR.ª',
+            'SR*': 'SR.ª',
             'SR-': 'SR.ª',
-            '1 BITU RU NA': 'IBITURUNA'
+            '1 BITU RU NA': 'IBITURUNA',
+            'CARME LO': 'CARMELO',
         }
         for erro in substituicoes.keys():
             texto = texto.replace(erro, substituicoes[erro])
