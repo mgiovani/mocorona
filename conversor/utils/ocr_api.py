@@ -15,8 +15,7 @@ def converte_imagem(checksum, url):
         return imagem_ja_convertida[0]['texto']
     
     corpo = {
-        # 'url': f'{URL_BASE}{url.strip("/")}',
-        'url': 'https://i.imgur.com/tOaQXbq.jpg',
+        'url': f'{URL_BASE}{url.strip("/")}',
         'language': 'por',
         'scale': True,
         'isTable': True,
