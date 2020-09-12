@@ -16,7 +16,9 @@
       "type": "string"
     },
     "checksum": {
-      "type": "string"
+      "type": "string",
+      "unique": true,
+      "required": false
     }
   }
 }
