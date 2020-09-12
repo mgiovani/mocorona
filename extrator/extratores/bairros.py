@@ -1,3 +1,4 @@
+import logging
 import os
 import re
 import datetime
@@ -9,28 +10,17 @@ class ExtratorBairros:
     PATH_TEXTOS = os.path.join('..', 'conversor', 'textos')
 
     def inicia_extracao(self):
-        print('Iniciando extracação de bairros...')
+        logging.info('Iniciando extracação de bairros...')
         data = datetime.datetime.now().date()
-        textos = self._encontra_arquivos_data(data)
+        textos = api.encontra_textos(data)
         for texto in textos:
             if self._texto_tipo_bairros(texto):
                 dados = self._extrai_dados_arquivo(texto)
                 api.envia_casos_bairros(data, dados)
 
-    def _encontra_arquivos_data(self, data):
-        data = data.strftime('%Y-%m-%d')
-        print(f'Procurando arquivos para o dia {data}...')
-
-        caminho_pasta = os.path.join(self.PATH_TEXTOS, data)
-        nomes_arquivos = os.listdir(caminho_pasta)
-        textos = []
-        for nome in nomes_arquivos:
-            caminho = os.path.join(caminho_pasta, nome)
-            textos.append(open(caminho).read())
-        return textos
 
     def _texto_tipo_bairros(self, texto):
-        return 'CONFIRMADOS POR BAIRRO' in texto
+        return 'CASOS CONFIRMADOSQORBAIRRO-' in texto
 
     def _extrai_dados_arquivo(self, texto):
         dados_iniciais = re.findall(r'(?P<bairro>[\w\d .?-]+)\t(?P<casos>\d+)', texto)
