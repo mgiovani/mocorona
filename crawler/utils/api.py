@@ -1,4 +1,5 @@
 import io
+import logging
 import os
 
 import requests
@@ -7,7 +8,7 @@ URL_BASE = os.getenv("API_URL", "http://localhost:1337/")
 API_TOKEN = os.getenv("API_TOKEN", "")
 
 def envia_resumo(notificacoes, negativos, confirmados, recuperados, obitos, data):
-    print('Enviando resumo de casos para a API...')
+    logging.info('Enviando resumo de casos para a API...')
     url_resumos = f'{URL_BASE}resumos?token={API_TOKEN}'
     data_convertida = '-'.join(data.split('/')[::-1])
     dados = {
@@ -22,7 +23,7 @@ def envia_resumo(notificacoes, negativos, confirmados, recuperados, obitos, data
 
 
 def envia_imagem(data, imagem, checksum):
-    print('Enviando imagem para a API...')
+    logging.info('Enviando imagem para a API...')
     url_imagens = f'{URL_BASE}imagens?token={API_TOKEN}'
     url_upload = f'{URL_BASE}upload?token={API_TOKEN}'
     res = requests.get(f'{url_imagens}&checksum={checksum}')
@@ -41,3 +42,4 @@ def envia_imagem(data, imagem, checksum):
         'checksum': checksum,
     }
     res = requests.post(url_imagens, json=dados)
+    logging.info(res)

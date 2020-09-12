@@ -1,3 +1,4 @@
+import logging
 from time import sleep
 
 import requests
@@ -5,16 +6,17 @@ import requests
 from crawlers.status import CrawlerStatus
 from crawlers.instagram import CrawlerInstagram
 
+
 def main():
+    logging.getLogger().setLevel(logging.INFO)
+
     crawler_status = CrawlerStatus()
     crawler_instagram = CrawlerInstagram()
-    while True:
-        print('Iniciando crawler de status...')
-        crawler_status.inicia_busca()
-        print('Iniciando crawler do Instagram...')
-        crawler_instagram.inicia_busca()
-        print('Aguardando 1 minuto para nova busca...')
-        sleep(60)
+
+    logging.info('Iniciando crawler de status...')
+    crawler_status.inicia_busca()
+    logging.info('Iniciando crawler do Instagram...')
+    crawler_instagram.inicia_busca()
 
 if __name__ == '__main__':
     main()
