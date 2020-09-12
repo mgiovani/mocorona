@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 from datetime import datetime
 
@@ -11,7 +12,7 @@ class CrawlerInstagram:
     URL_BASE = 'https://www.instagram.com/sec_saude_moc/'
 
     def inicia_busca(self):
-        print('Iniciando busca de imagens...')
+        logging.info('Iniciando busca de imagens...')
         html = requests.get(self.URL_BASE)
         soup = BeautifulSoup(html.content, 'html.parser')
         json_pagina = self._extrai_json_pagina(soup)
