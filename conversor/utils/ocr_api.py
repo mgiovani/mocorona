@@ -1,4 +1,5 @@
 import io
+import logging
 import os
 
 import requests
@@ -8,7 +9,7 @@ OCR_URL_BASE = os.getenv('OCR_API_URL', '')
 OCR_API_TOKEN = os.getenv('OCR_API_TOKEN', '')
 
 def converte_imagem(checksum, url):
-    print(f'Convertendo imagem {checksum}...')
+    logging.info(f'Convertendo imagem {checksum}...')
     url_textos = f'{URL_BASE}textos'
     imagem_ja_convertida = requests.get(f'{url_textos}?checksum_img={checksum}').json()
     if imagem_ja_convertida:
@@ -22,5 +23,6 @@ def converte_imagem(checksum, url):
         'apikey': OCR_API_TOKEN,
     }
     res = requests.post(OCR_URL_BASE, data=corpo)
+    logging.info(res)
     texto = res.json()['ParsedResults'][0]['ParsedText']
     return texto
