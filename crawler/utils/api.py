@@ -20,6 +20,7 @@ def envia_resumo(notificacoes, negativos, confirmados, recuperados, obitos, data
         'data_atualizacao': data_convertida,
     }
     res = requests.post(url_resumos, json=dados)
+    logging.info(res)
 
 
 def envia_imagem(data, imagem, checksum):
