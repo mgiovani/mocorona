@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "textos",
+  "info": {
+    "name": "Textos"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "texto": {
+      "type": "text",
+      "required": true,
+      "unique": false
+    },
+    "checksum_img": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "data": {
+      "type": "date",
+      "required": true
+    }
+  }
+}
