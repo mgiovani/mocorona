@@ -1,7 +1,0 @@
-chrome:
-  image: selenium/node-chrome:3.14.0
-  environment:
-    - HUB_HOST=selenium-hub
-    - HUB_PORT=4444
-  volumes:
-    - /dev/shm:/dev/shm
