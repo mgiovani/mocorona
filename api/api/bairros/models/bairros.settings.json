@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "bairros",
+  "info": {
+    "name": "Bairros"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "bairros": {
+      "model": "bairros"
+    },
+    "nome": {
+      "type": "string",
+      "unique": false,
+      "required": true
+    },
+    "casos": {
+      "type": "integer",
+      "required": true
+    },
+    "data_atualizacao": {
+      "type": "date"
+    }
+  }
+}
