@@ -16,6 +16,7 @@ def envia_casos_bairros(data, dados):
             'casos': int(dados[bairro]),
             'data_atualizacao': data.strftime('%Y-%m-%d'),
         }
+        logging.info(corpo)
         res = requests.post(url_bairros, json=corpo)
         logging.info(res)
 
