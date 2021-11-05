@@ -39,7 +39,7 @@ func GetDB() *gorm.DB {
 
 func GetCovidSummaries(db *gorm.DB) ([]models.CovidSummary, error) {
 	summaries := []models.CovidSummary{}
-	query := db.Select("covid_summaries.*").Group("covid_summaries.id")
+	query := db.Select("covid_summaries.*").Group("covid_summaries.id").Order("-id")
 
 	if err := query.Find(&summaries).Error; err != nil {
 		return summaries, err
@@ -58,7 +58,7 @@ func CreateCovidSummary(
 
 func GetVaccineSummaries(db *gorm.DB) ([]models.VaccineSummary, error) {
 	summaries := []models.VaccineSummary{}
-	query := db.Select("vaccine_summaries.*").Group("vaccine_summaries.id")
+	query := db.Select("vaccine_summaries.*").Group("vaccine_summaries.id").Order("-id")
 
 	if err := query.Find(&summaries).Error; err != nil {
 		return summaries, err

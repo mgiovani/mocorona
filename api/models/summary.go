@@ -13,7 +13,7 @@ type CovidSummary struct {
 	Confirmed    int
 	Recovered    int
 	Dead         int
-	Release      time.Time
+	Release      time.Time `gorm:"unique;not null"`
 }
 
 type VaccineSummary struct {
@@ -23,5 +23,5 @@ type VaccineSummary struct {
 	SecondDose  int
 	BoosterDose int
 	Target      string
-	Release     time.Time
+	Release     time.Time `gorm:"unique;not null"`
 }
