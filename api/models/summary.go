@@ -22,5 +22,6 @@ type VaccineSummary struct {
 	FirstDose   int
 	SecondDose  int
 	BoosterDose int
+	Target      string
 	Release     time.Time
 }
