@@ -1,7 +1,5 @@
 FROM golang:alpine as builder
 
-#RUN apk update && apk add --no-cache git
-
 WORKDIR /app
 
 COPY go.mod go.sum ./
@@ -18,5 +16,5 @@ WORKDIR /root/
 COPY --from=builder /app/main .
 COPY --from=builder /app/.env .
 
-EXPOSE 8000
+EXPOSE 8001
 ENTRYPOINT ["./main"]

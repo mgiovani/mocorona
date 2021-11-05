@@ -12,7 +12,7 @@ func main() {
 	godotenv.Load()
 	database.Setup()
 	router := routers.Setup()
-	if err := router.Run("localhost:8000"); err != nil {
+	if err := router.Run("0.0.0.0:8001"); err != nil {
 		log.Fatal(err)
 	}
 }
