@@ -15,6 +15,8 @@ func Setup() *gin.Engine {
 
 	router.GET("/covid-summaries", api.GetCovidSummaries)
 	router.POST("/covid-summaries", api.CreateCovidSummary)
+	router.GET("/vaccine-summaries", api.GetVaccineSummaries)
+	router.POST("/vaccine-summaries", api.CreateVaccineSummary)
 
 	return router
 }
