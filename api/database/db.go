@@ -54,3 +54,22 @@ func CreateCovidSummary(
 	}
 	return summary, nil
 }
+
+func GetVaccineSummaries(db *gorm.DB) ([]models.VaccineSummary, error) {
+	summaries := []models.VaccineSummary{}
+	query := db.Select("vaccine_summaries.*").Group("vaccine_summaries.id")
+
+	if err := query.Find(&summaries).Error; err != nil {
+		return summaries, err
+	}
+	return summaries, nil
+}
+
+func CreateVaccineSummary(
+	db *gorm.DB, summary models.VaccineSummary) (models.VaccineSummary, error) {
+
+	if err := db.Create(&summary).Error; err != nil {
+		return summary, err
+	}
+	return summary, nil
+}
