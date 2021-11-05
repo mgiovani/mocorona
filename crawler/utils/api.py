@@ -4,24 +4,43 @@ import os
 
 import requests
 
-URL_BASE = os.getenv("API_URL", "http://localhost:1337/")
+URL_BASE = os.getenv("API_URL", "http://localhost:8001/")
 API_TOKEN = os.getenv("API_TOKEN", "")
+
+def envia_request(url, dados):
+    headers = {'authorization': API_TOKEN}
+    res = requests.post(url, json=dados, headers=headers)
+    logging.info(res)
 
 def envia_resumo(notificacoes, negativos, confirmados, recuperados, obitos, data):
     logging.info('Enviando resumo de casos para a API...')
-    url_resumos = f'{URL_BASE}resumos?token={API_TOKEN}'
-    data_convertida = '-'.join(data.split('/')[::-1])
+    url_resumos = f'{URL_BASE}covid-summaries'
+    headers = {'authorization': API_TOKEN}
     dados = {
-        'notificacoes': notificacoes,
-        'negativos': negativos,
-        'confirmados': confirmados,
-        'recuperados': recuperados,
-        'obitos': obitos,
-        'data_atualizacao': data_convertida,
+        'notification': notificacoes,
+        'negative': negativos,
+        'confirmed': confirmados,
+        'recovered': recuperados,
+        'dead': obitos,
+        'release': data,
     }
-    res = requests.post(url_resumos, json=dados)
-    logging.info(res)
+    logging.info(dados)
+    envia_request(url_resumos, dados)
 
+def envia_resumo_vacinas(reforco, unica, primeira, segunda, data, target):
+    logging.info('Enviando resumo de vacinas para a API...')
+    url_resumos = f'{URL_BASE}vaccine-summaries'
+    headers = {'authorization': API_TOKEN}
+    dados = {
+        "boosterdose": reforco,
+        "uniquedose": unica,
+        "firstdose": primeira,
+        "seconddose": segunda,
+        "release": data,
+        "target": target,
+    }
+    logging.info(dados)
+    envia_request(url_resumos, dados)
 
 def envia_imagem(data, imagem, checksum):
     logging.info('Enviando imagem para a API...')
